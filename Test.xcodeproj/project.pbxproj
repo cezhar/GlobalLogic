@@ -9,23 +9,27 @@
 /* Begin PBXBuildFile section */
 		472ED83224214B6100518DB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472ED83124214B6100518DB9 /* AppDelegate.swift */; };
 		472ED83424214B6100518DB9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472ED83324214B6100518DB9 /* SceneDelegate.swift */; };
-		472ED83624214B6100518DB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472ED83524214B6100518DB9 /* ViewController.swift */; };
+		472ED83624214B6100518DB9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472ED83524214B6100518DB9 /* MainViewController.swift */; };
 		472ED83924214B6100518DB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 472ED83724214B6100518DB9 /* Main.storyboard */; };
 		472ED83B24214B6400518DB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 472ED83A24214B6400518DB9 /* Assets.xcassets */; };
 		472ED83E24214B6400518DB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 472ED83C24214B6400518DB9 /* LaunchScreen.storyboard */; };
 		472ED84724218B8400518DB9 /* Song.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472ED84624218B8400518DB9 /* Song.swift */; };
+		47E443652421A9430008C7B1 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E443642421A9430008C7B1 /* API.swift */; };
+		47E443672421AD810008C7B1 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E443662421AD810008C7B1 /* Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		472ED82E24214B6100518DB9 /* Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		472ED83124214B6100518DB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		472ED83324214B6100518DB9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		472ED83524214B6100518DB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		472ED83524214B6100518DB9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		472ED83824214B6100518DB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		472ED83A24214B6400518DB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		472ED83D24214B6400518DB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		472ED83F24214B6400518DB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		472ED84624218B8400518DB9 /* Song.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Song.swift; sourceTree = "<group>"; };
+		47E443642421A9430008C7B1 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		47E443662421AD810008C7B1 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,14 +62,11 @@
 		472ED83024214B6100518DB9 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				47E443632421A92B0008C7B1 /* api */,
+				47E4435F24219E530008C7B1 /* controllers */,
 				472ED84524218B7000518DB9 /* model */,
-				472ED83124214B6100518DB9 /* AppDelegate.swift */,
-				472ED83324214B6100518DB9 /* SceneDelegate.swift */,
-				472ED83524214B6100518DB9 /* ViewController.swift */,
-				472ED83724214B6100518DB9 /* Main.storyboard */,
-				472ED83A24214B6400518DB9 /* Assets.xcassets */,
-				472ED83C24214B6400518DB9 /* LaunchScreen.storyboard */,
-				472ED83F24214B6400518DB9 /* Info.plist */,
+				47E443622421A8F90008C7B1 /* app */,
+				47E443612421A8E80008C7B1 /* resources */,
 			);
 			path = Test;
 			sourceTree = "<group>";
@@ -74,8 +75,45 @@
 			isa = PBXGroup;
 			children = (
 				472ED84624218B8400518DB9 /* Song.swift */,
+				47E443662421AD810008C7B1 /* Result.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		47E4435F24219E530008C7B1 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				472ED83524214B6100518DB9 /* MainViewController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		47E443612421A8E80008C7B1 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				472ED83724214B6100518DB9 /* Main.storyboard */,
+				472ED83A24214B6400518DB9 /* Assets.xcassets */,
+				472ED83C24214B6400518DB9 /* LaunchScreen.storyboard */,
+				472ED83F24214B6400518DB9 /* Info.plist */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		47E443622421A8F90008C7B1 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				472ED83124214B6100518DB9 /* AppDelegate.swift */,
+				472ED83324214B6100518DB9 /* SceneDelegate.swift */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		47E443632421A92B0008C7B1 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				47E443642421A9430008C7B1 /* API.swift */,
+			);
+			path = api;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,10 +187,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47E443672421AD810008C7B1 /* Result.swift in Sources */,
 				472ED84724218B8400518DB9 /* Song.swift in Sources */,
-				472ED83624214B6100518DB9 /* ViewController.swift in Sources */,
+				472ED83624214B6100518DB9 /* MainViewController.swift in Sources */,
 				472ED83224214B6100518DB9 /* AppDelegate.swift in Sources */,
 				472ED83424214B6100518DB9 /* SceneDelegate.swift in Sources */,
+				47E443652421A9430008C7B1 /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,7 +338,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9L4ZZF4QBS;
-				INFOPLIST_FILE = Test/Info.plist;
+				INFOPLIST_FILE = Test/resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,7 +356,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9L4ZZF4QBS;
-				INFOPLIST_FILE = Test/Info.plist;
+				INFOPLIST_FILE = Test/resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -16,13 +16,13 @@ struct Song: Codable {
     let artistViewURL, collectionViewURL, trackViewURL: String
     let previewURL: String
     let artworkUrl30, artworkUrl60, artworkUrl100: String
-    let collectionPrice, trackPrice, collectionHDPrice, trackHDPrice: Double
-    let releaseDate: Date
+    let collectionPrice, trackPrice, collectionHDPrice, trackHDPrice: Double?
+    let releaseDate: String
     let collectionExplicitness, trackExplicitness: String
     let discCount, discNumber, trackCount, trackNumber: Int
     let trackTimeMillis: Int
-    let country, currency, primaryGenreName, contentAdvisoryRating: String
-    let shortDescription, longDescription: String
+    let country, currency, primaryGenreName, contentAdvisoryRating: String?
+    let shortDescription, longDescription: String?
 
     enum CodingKeys: String, CodingKey {
         case wrapperType, kind
