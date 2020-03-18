@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class DetailCell : UITableViewCell {
     
@@ -26,8 +27,8 @@ class DetailViewController: UIViewController{
     var albumStr: String = ""
     var artistStr: String = ""
     var albumId: Int = -1
-    
     var songs = [Song]()
+    var player: AVPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,15 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailCell") as! DetailCell
         cell.song.text = Utils.formatSongListName(pos: pos, name: songs[pos].trackName ?? "")
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let pos = indexPath.row
+        let song = songs[pos].previewURL
+        let playerItem = AVPlayerItem(url: URL(string: song!)!)
+        player = AVPlayer(playerItem: playerItem)
+        player?.play()
+        player?.actionAtItemEnd = .none
     }
     
 }
