@@ -19,12 +19,12 @@ class MainViewController: UIViewController{
     
 
     @IBOutlet weak var table: UITableView!
-    
+    var selectedSongIndex: Int = -1
     var songs = [Song]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        API.fetchSongs(CompletionHandler: {result, error in
+        API.fetchSongs(completion: {result, error in
             self.songs = result!
             DispatchQueue.main.async {
                 self.table.reloadData()
@@ -33,6 +33,17 @@ class MainViewController: UIViewController{
         })
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
+        if (segue.identifier == "detail") {
+            if let vc: DetailViewController = segue.destination as? DetailViewController {
+                let song = songs[selectedSongIndex]
+                vc.albumId = song.collectionID ?? -1
+                vc.albumStr = song.collectionName ?? ""
+                vc.artistStr = song.artistName ?? ""
+                vc.coverURL = song.artworkUrl100 ?? ""
+            }
+        }
+    }
 
 }
 extension MainViewController: UITableViewDataSource, UITableViewDelegate{
@@ -45,7 +56,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "songCell") as! SongCell
         cell.artist.text = songs[pos].artistName
         cell.title.text = songs[pos].trackName
-        if let url = URL( string:songs[pos].artworkUrl30)
+        if let url = URL( string:songs[pos].artworkUrl30 ?? "")
         {
             DispatchQueue.global().async {
               if let data = try? Data( contentsOf:url)
@@ -59,6 +70,9 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedSongIndex = indexPath.row
+        self.performSegue(withIdentifier: "detail", sender: nil)
+    }
     
 }
-
