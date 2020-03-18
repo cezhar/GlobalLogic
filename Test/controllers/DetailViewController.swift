@@ -31,26 +31,13 @@ class DetailViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         API.fetchAlbum(id: albumId,completion: {result, error in
             self.songs = result!
             DispatchQueue.main.async {
                 self.table.reloadData()
             }
         })
-        
-        if let url = URL( string:coverURL)
-        {
-            DispatchQueue.global().async {
-              if let data = try? Data( contentsOf:url)
-              {
-                DispatchQueue.main.async {
-                    self.cover.image = UIImage( data:data)
-                }
-              }
-           }
-        }
-        
+        Utils.loadImage(view: cover, urlStr: coverURL)
     }
     
     @IBAction func close(_ sender: Any) {
@@ -67,7 +54,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let pos = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailCell") as! DetailCell
-        cell.song.text = "\(pos + 1).- " + (songs[pos].trackName ?? "")
+        cell.song.text = Utils.formatSongListName(pos: pos, name: songs[pos].trackName ?? "")
         return cell
     }
     

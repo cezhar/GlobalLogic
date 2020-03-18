@@ -56,17 +56,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "songCell") as! SongCell
         cell.artist.text = songs[pos].artistName
         cell.title.text = songs[pos].trackName
-        if let url = URL( string:songs[pos].artworkUrl30 ?? "")
-        {
-            DispatchQueue.global().async {
-              if let data = try? Data( contentsOf:url)
-              {
-                DispatchQueue.main.async {
-                  cell.icon.image = UIImage( data:data)
-                }
-              }
-           }
-        }
+        Utils.loadImage(view: cell.icon, urlStr: songs[pos].artworkUrl30 ?? "")
         return cell
     }
     
