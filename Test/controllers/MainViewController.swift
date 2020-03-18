@@ -17,16 +17,21 @@ class SongCell: UITableViewCell {
 
 class MainViewController: UIViewController{
     
-
+    
+    @IBOutlet weak var pageNumber: UILabel!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var table: UITableView!
+    @IBOutlet weak var previous: UIButton!
+    @IBOutlet weak var nextPage: UIButton!
+    
     var selectedSongIndex: Int = -1
     var songs = [Song]()
+    var page = 0;
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchField.delegate = self
-        
+        cleanNavigatorStuff()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
@@ -40,7 +45,66 @@ class MainViewController: UIViewController{
             }
         }
     }
-
+    @IBAction func goToPrevious(_ sender: Any) {
+        navigateThroughResults(forward: false)
+    }
+    @IBAction func goToNext(_ sender: Any) {
+        navigateThroughResults(forward: true)
+    }
+    
+    func navigateThroughResults(forward:Bool){
+        if forward {
+            page += 1
+        }
+        else {
+            page -= 1
+        }
+        if searchField.text != nil {
+            if searchField.text!.count > 2 {
+                let escapedString = searchField.text!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+                API.fetchSongs(with: escapedString, offset: page, completion: {result, error in
+                    if result != nil{
+                        self.songs = result!
+                        DispatchQueue.main.async {
+                            self.formatNavigatorStuff()
+                            self.table.reloadData()
+                        }
+                    }
+                })
+            }
+            else {
+                self.cleanNavigatorStuff()
+                self.songs.removeAll()
+                self.table.reloadData()
+            }
+        }
+        
+       
+    }
+    
+    func formatNavigatorStuff(){
+        if page == 0 {
+            previous.isHidden = true
+        }
+        else {
+            previous.isHidden = false
+        }
+        if songs.count < 20 {
+            nextPage.isHidden = true
+        }
+        else {
+            nextPage.isHidden = false
+        }
+        self.pageNumber.text = "\(self.page + 1)"
+    }
+    
+    func cleanNavigatorStuff(){
+        nextPage.isHidden = true
+        previous.isHidden = true
+        pageNumber.text = ""
+        page = 0
+    }
+    
 }
 extension MainViewController: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,15 +131,17 @@ extension MainViewController: UITextFieldDelegate{
         if textField.text != nil {
             if textField.text!.count > 2 {
                 let escapedString = textField.text!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-                API.fetchSongs(with:escapedString, completion: {result, error in
+                API.fetchSongs(with:escapedString, offset:0, completion: {result, error in
                     self.songs = result!
                     DispatchQueue.main.async {
+                        self.formatNavigatorStuff()
                         self.table.reloadData()
                     }
                     
                 })
             }
             else {
+                self.cleanNavigatorStuff()
                 self.songs.removeAll()
                 self.table.reloadData()
             }

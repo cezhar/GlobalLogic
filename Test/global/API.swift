@@ -10,8 +10,8 @@ import Foundation
 
 class API {
     
-    class func fetchSongs(with: String, completion: @escaping ([Song]?, Error?) -> Void) {
-      let url = URL(string: "https://itunes.apple.com/search?term="+with+"&entity=song&limit=20")!
+    class func fetchSongs(with: String, offset:Int, completion: @escaping ([Song]?, Error?) -> Void) {
+      let url = URL(string: "https://itunes.apple.com/search?term="+with+"&entity=song&limit=20&offset=\(offset*20)")!
       let task = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
 
         guard let data = data else { return }
