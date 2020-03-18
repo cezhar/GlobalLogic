@@ -18,19 +18,15 @@ class SongCell: UITableViewCell {
 class MainViewController: UIViewController{
     
 
+    @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var table: UITableView!
     var selectedSongIndex: Int = -1
     var songs = [Song]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        API.fetchSongs(completion: {result, error in
-            self.songs = result!
-            DispatchQueue.main.async {
-                self.table.reloadData()
-            }
-            
-        })
+        searchField.delegate = self
+        
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any!) {
@@ -66,3 +62,34 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
     }
     
 }
+extension MainViewController: UITextFieldDelegate{
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.text != nil {
+            if textField.text!.count > 2 {
+                let escapedString = textField.text!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+                API.fetchSongs(with:escapedString, completion: {result, error in
+                    self.songs = result!
+                    DispatchQueue.main.async {
+                        self.table.reloadData()
+                    }
+                    
+                })
+            }
+            else {
+                self.songs.removeAll()
+                self.table.reloadData()
+            }
+        }
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        return true
+    }
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+
+        return true
+    }
+}
+

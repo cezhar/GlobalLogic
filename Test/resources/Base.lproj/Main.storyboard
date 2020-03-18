@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IN3-5g-Hz7">
-                                <rect key="frame" x="16" y="104" width="382" height="742"/>
+                                <rect key="frame" x="16" y="154" width="382" height="692"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="songCell" id="XaJ-VQ-V5B" customClass="SongCell" customModule="Test" customModuleProvider="target">
@@ -82,18 +82,30 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="UkV-SL-qQr"/>
                                 </connections>
                             </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search a song here..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Pr4-9G-z04">
+                                <rect key="frame" x="16" y="104" width="382" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wPd-pO-bQr"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pr4-9G-z04" secondAttribute="trailing" constant="16" id="HC2-zz-nGB"/>
+                            <constraint firstItem="Pr4-9G-z04" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="S6I-AH-k02"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IN3-5g-Hz7" secondAttribute="trailing" constant="16" id="id7-dq-JAq"/>
-                            <constraint firstItem="IN3-5g-Hz7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="nhd-ha-U6b"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="IN3-5g-Hz7" secondAttribute="bottom" constant="16" id="qFV-YV-ibG"/>
                             <constraint firstItem="IN3-5g-Hz7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="sQA-kL-Dfk"/>
+                            <constraint firstItem="IN3-5g-Hz7" firstAttribute="top" secondItem="Pr4-9G-z04" secondAttribute="bottom" constant="16" id="scS-Fh-xo6"/>
+                            <constraint firstItem="Pr4-9G-z04" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="xHb-sO-ydb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="jpl-yy-mCm"/>
                     <connections>
+                        <outlet property="searchField" destination="Pr4-9G-z04" id="RUN-4x-U85"/>
                         <outlet property="table" destination="IN3-5g-Hz7" id="HVw-30-Ovu"/>
                         <segue destination="Q9Q-Fa-xHq" kind="presentation" identifier="detail" id="sLc-Bg-c6z"/>
                     </connections>
