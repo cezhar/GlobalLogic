@@ -17,7 +17,7 @@ class SongCell: UITableViewCell {
 
 class MainViewController: UIViewController{
     
-    
+    @IBOutlet weak var error: UILabel!
     @IBOutlet weak var pageNumber: UILabel!
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var table: UITableView!
@@ -59,27 +59,7 @@ class MainViewController: UIViewController{
         else {
             page -= 1
         }
-        if searchField.text != nil {
-            if searchField.text!.count > 2 {
-                let escapedString = searchField.text!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-                API.fetchSongs(with: escapedString, offset: page, completion: {result, error in
-                    if result != nil{
-                        self.songs = result!
-                        DispatchQueue.main.async {
-                            self.formatNavigatorStuff()
-                            self.table.reloadData()
-                        }
-                    }
-                })
-            }
-            else {
-                self.cleanNavigatorStuff()
-                self.songs.removeAll()
-                self.table.reloadData()
-            }
-        }
-        
-       
+        performAPICall(with:page)
     }
     
     func formatNavigatorStuff(){
@@ -99,10 +79,51 @@ class MainViewController: UIViewController{
     }
     
     func cleanNavigatorStuff(){
+        error.text = "Song not found..."
+        table.isHidden = false
+        error.isHidden = true
         nextPage.isHidden = true
         previous.isHidden = true
         pageNumber.text = ""
         page = 0
+    }
+    
+    func performAPICall(with:Int){
+        if searchField.text != nil {
+            if searchField.text!.count > 2 {
+                let escapedString = searchField.text!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+                API.fetchSongs(with: escapedString, offset: with, completion: {result, error in
+                    if result != nil{
+                        if result!.count < 0{
+                            self.songs = result!
+                            DispatchQueue.main.async {
+                                self.formatNavigatorStuff()
+                                self.table.reloadData()
+                            }
+                        }else{
+                            DispatchQueue.main.async {
+                                self.error.text = "Song not found..."
+                                self.table.isHidden = true
+                                self.error.isHidden = false
+                            }
+                            
+                        }
+                    }
+                    else{
+                        DispatchQueue.main.async {
+                            self.error.text = error?.localizedDescription ?? "The Internet connection appears to be offline..."
+                            self.table.isHidden = true
+                            self.error.isHidden = false
+                        }
+                    }
+                })
+            }
+            else {
+                self.cleanNavigatorStuff()
+                self.songs.removeAll()
+                self.table.reloadData()
+            }
+        }
     }
     
 }
@@ -128,24 +149,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
 }
 extension MainViewController: UITextFieldDelegate{
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.text != nil {
-            if textField.text!.count > 2 {
-                let escapedString = textField.text!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-                API.fetchSongs(with:escapedString, offset:0, completion: {result, error in
-                    self.songs = result!
-                    DispatchQueue.main.async {
-                        self.formatNavigatorStuff()
-                        self.table.reloadData()
-                    }
-                    
-                })
-            }
-            else {
-                self.cleanNavigatorStuff()
-                self.songs.removeAll()
-                self.table.reloadData()
-            }
-        }
+        performAPICall(with:0)
     }
 
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {

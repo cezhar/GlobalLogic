@@ -118,16 +118,25 @@
                                 <color key="textColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song not found..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OkR-ws-Fco">
+                                <rect key="frame" x="16" y="154" width="382" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="oru-f4-tYQ" firstAttribute="top" secondItem="IN3-5g-Hz7" secondAttribute="bottom" constant="16" id="3NL-Pp-aCI"/>
                             <constraint firstItem="cwj-da-4ls" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="5ai-8I-NKB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pr4-9G-z04" secondAttribute="trailing" constant="16" id="HC2-zz-nGB"/>
+                            <constraint firstItem="OkR-ws-Fco" firstAttribute="top" secondItem="Pr4-9G-z04" secondAttribute="bottom" constant="16" id="RCO-bT-UbA"/>
                             <constraint firstItem="Pr4-9G-z04" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="S6I-AH-k02"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OkR-ws-Fco" secondAttribute="trailing" constant="16" id="VWG-ow-uni"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pgQ-N5-QGL" secondAttribute="bottom" constant="32" id="a8f-qZ-3mM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oru-f4-tYQ" secondAttribute="bottom" constant="32" id="aUc-NF-ZFP"/>
                             <constraint firstItem="oru-f4-tYQ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="32" id="dNO-5v-Vfv"/>
+                            <constraint firstItem="OkR-ws-Fco" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="esr-Ij-qOr"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IN3-5g-Hz7" secondAttribute="trailing" constant="16" id="id7-dq-JAq"/>
                             <constraint firstItem="IN3-5g-Hz7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="sQA-kL-Dfk"/>
                             <constraint firstItem="IN3-5g-Hz7" firstAttribute="top" secondItem="Pr4-9G-z04" secondAttribute="bottom" constant="16" id="scS-Fh-xo6"/>
@@ -140,6 +149,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="jpl-yy-mCm"/>
                     <connections>
+                        <outlet property="error" destination="OkR-ws-Fco" id="WK1-YK-qx8"/>
                         <outlet property="nextPage" destination="pgQ-N5-QGL" id="lU1-xa-Efj"/>
                         <outlet property="pageNumber" destination="cwj-da-4ls" id="uTW-WN-Awf"/>
                         <outlet property="previous" destination="oru-f4-tYQ" id="SZg-8K-bbL"/>
@@ -220,16 +230,25 @@
                                     <outlet property="delegate" destination="Q9Q-Fa-xHq" id="p5X-4g-tts"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Internet connection appears to be offline..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TVw-Zk-FEa">
+                                <rect key="frame" x="16" y="198" width="382" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="TVw-Zk-FEa" firstAttribute="leading" secondItem="J9P-9F-Wue" secondAttribute="leading" constant="16" id="0fL-CP-kLC"/>
                             <constraint firstItem="qms-DU-6hl" firstAttribute="top" secondItem="dIw-jn-DpY" secondAttribute="bottom" constant="16" id="1mj-Sb-R0v"/>
                             <constraint firstItem="nf6-iN-BLM" firstAttribute="top" secondItem="tp6-DO-TH2" secondAttribute="bottom" constant="8" id="4Dx-JO-iVb"/>
                             <constraint firstItem="J9P-9F-Wue" firstAttribute="trailing" secondItem="dIw-jn-DpY" secondAttribute="trailing" constant="16" id="5zh-TY-9FS"/>
                             <constraint firstItem="nf6-iN-BLM" firstAttribute="leading" secondItem="J9P-9F-Wue" secondAttribute="leading" constant="16" id="AYn-0P-4Il"/>
+                            <constraint firstItem="TVw-Zk-FEa" firstAttribute="top" secondItem="nf6-iN-BLM" secondAttribute="bottom" constant="16" id="F0c-Sj-1r8"/>
                             <constraint firstItem="tp6-DO-TH2" firstAttribute="leading" secondItem="J9P-9F-Wue" secondAttribute="leading" constant="16" id="Imk-Iu-57E"/>
                             <constraint firstItem="qms-DU-6hl" firstAttribute="leading" secondItem="J9P-9F-Wue" secondAttribute="leading" constant="16" id="OYv-LK-Nkg"/>
                             <constraint firstItem="eXG-F2-020" firstAttribute="top" secondItem="J9P-9F-Wue" secondAttribute="top" constant="16" id="RAB-6v-MA0"/>
+                            <constraint firstItem="J9P-9F-Wue" firstAttribute="trailing" secondItem="TVw-Zk-FEa" secondAttribute="trailing" constant="16" id="SzI-Oe-ivk"/>
                             <constraint firstItem="eXG-F2-020" firstAttribute="centerX" secondItem="h3y-MS-ulh" secondAttribute="centerX" id="ds9-AL-Rex"/>
                             <constraint firstItem="J9P-9F-Wue" firstAttribute="bottom" secondItem="qms-DU-6hl" secondAttribute="bottom" constant="16" id="eyg-vw-6tA"/>
                             <constraint firstItem="dIw-jn-DpY" firstAttribute="leading" secondItem="J9P-9F-Wue" secondAttribute="leading" constant="16" id="fYZ-Cf-pbf"/>
@@ -247,6 +266,7 @@
                         <outlet property="artist" destination="nf6-iN-BLM" id="It6-55-ekw"/>
                         <outlet property="close" destination="qms-DU-6hl" id="fZ4-rI-HYW"/>
                         <outlet property="cover" destination="eXG-F2-020" id="KcM-ju-NI6"/>
+                        <outlet property="error" destination="TVw-Zk-FEa" id="gkr-ID-ysy"/>
                         <outlet property="table" destination="dIw-jn-DpY" id="958-NJ-ZwF"/>
                     </connections>
                 </viewController>

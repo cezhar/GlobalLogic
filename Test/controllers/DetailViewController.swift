@@ -22,6 +22,7 @@ class DetailViewController: UIViewController{
     @IBOutlet weak var artist: UILabel!
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var close: UIButton!
+    @IBOutlet weak var error: UILabel!
     
     var coverURL: String = ""
     var albumStr: String = ""
@@ -32,10 +33,20 @@ class DetailViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        error.isHidden = true
         API.fetchAlbum(id: albumId,completion: {result, error in
-            self.songs = result!
-            DispatchQueue.main.async {
-                self.table.reloadData()
+            if error != nil{
+                self.songs = result!
+                DispatchQueue.main.async {
+                    self.table.reloadData()
+                }
+            }
+            else{
+                DispatchQueue.main.async{
+                    self.table.isHidden = true
+                    self.error.isHidden = false
+                    self.error.text = error?.localizedDescription ?? "The Internet connection appears to be offline..."
+                }
             }
         })
         Utils.loadImage(view: cover, urlStr: coverURL)
