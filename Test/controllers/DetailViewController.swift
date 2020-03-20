@@ -35,6 +35,7 @@ class DetailViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        table.accessibilityIdentifier = "detailTable"
         error.isHidden = true
         reachability.whenReachable = { reachability in
             Utils.loadImage(view: self.cover, urlStr: self.coverURL)
@@ -69,8 +70,9 @@ class DetailViewController: UIViewController{
     }
     
     @IBAction func close(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
         reachability.stopNotifier()
+        player?.pause()
+        self.dismiss(animated: true, completion: nil)
     }
     
     
@@ -84,6 +86,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
         let pos = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailCell") as! DetailCell
         cell.song.text = Utils.formatSongListName(pos: songs[pos].trackNumber!, name: songs[pos].trackName!)
+        cell.accessibilityIdentifier = "detailCell_\(pos)"
         return cell
     }
     

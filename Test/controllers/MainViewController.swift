@@ -148,6 +148,7 @@ class MainViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         searchField.delegate = self
+        table.accessibilityIdentifier = "table"
         cleanNavigatorStuff()
     }
 
@@ -208,10 +209,8 @@ class MainViewController: UIViewController{
     func performAPICall(with:Int){
         if searchField.text != nil {
             if searchField.text!.count > 2 {
-                let escapedString = self.searchField.text!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-                
                 reachability.whenReachable = { reachability in
-                    API.fetchSongs(with: escapedString, offset: with, completion: {result, error in
+                    API.fetchSongs(with: self.searchField.text!, offset: with, completion: {result, error in
                         if result != nil{
                             if result!.count > 0{
                                 self.songs = result!
@@ -286,6 +285,7 @@ extension MainViewController: UITableViewDataSource, UITableViewDelegate{
         cell.artist.text = songs[pos].artistName
         cell.title.text = songs[pos].trackName
         Utils.loadImage(view: cell.icon, urlStr: songs[pos].artworkUrl30 ?? "")
+        cell.accessibilityIdentifier = "songCell_\(pos)"
         return cell
     }
     
