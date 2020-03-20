@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import Reachability
 
 class DetailCell : UITableViewCell {
     
@@ -30,30 +31,46 @@ class DetailViewController: UIViewController{
     var albumId: Int = -1
     var songs = [Song]()
     var player: AVPlayer?
+    let reachability = try! Reachability()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         error.isHidden = true
-        API.fetchAlbum(id: albumId,completion: {result, error in
-            if error == nil{
-                self.songs = result!
-                DispatchQueue.main.async {
-                    self.table.reloadData()
+        reachability.whenReachable = { reachability in
+            Utils.loadImage(view: self.cover, urlStr: self.coverURL)
+            API.fetchAlbum(id: self.albumId,completion: {result, error in
+                if error == nil{
+                    self.songs = result!
+                    DispatchQueue.main.async {
+                        self.table.reloadData()
+                    }
                 }
-            }
-            else{
-                DispatchQueue.main.async{
-                    self.table.isHidden = true
-                    self.error.isHidden = false
-                    self.error.text = error?.localizedDescription ?? "The Internet connection appears to be offline..."
+                else{
+                    DispatchQueue.main.async{
+                        self.table.isHidden = true
+                        self.error.isHidden = false
+                        self.error.text = error?.localizedDescription ?? "The Internet connection appears to be offline..."
+                    }
                 }
-            }
-        })
-        Utils.loadImage(view: cover, urlStr: coverURL)
+            })
+        }
+        reachability.whenUnreachable = { _ in
+            self.table.isHidden = true
+            self.error.isHidden = false
+            self.error.text = "The Internet connection appears to be offline..."
+        }
+
+        do {
+            try reachability.startNotifier()
+        } catch {
+            print("Unable to start notifier")
+        }
+        
     }
     
     @IBAction func close(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        reachability.stopNotifier()
     }
     
     
