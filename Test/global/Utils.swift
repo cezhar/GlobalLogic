@@ -25,7 +25,7 @@ class Utils{
     }
     
     class func formatSongListName(pos: Int, name: String) -> String{
-        return "\(pos + 1).- " + (name)
+        return "\(pos).- " + (name)
     }
     
 }

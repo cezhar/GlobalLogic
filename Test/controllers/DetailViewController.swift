@@ -35,7 +35,7 @@ class DetailViewController: UIViewController{
         super.viewDidLoad()
         error.isHidden = true
         API.fetchAlbum(id: albumId,completion: {result, error in
-            if error != nil{
+            if error == nil{
                 self.songs = result!
                 DispatchQueue.main.async {
                     self.table.reloadData()
@@ -66,7 +66,7 @@ extension DetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let pos = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: "detailCell") as! DetailCell
-        cell.song.text = Utils.formatSongListName(pos: pos, name: songs[pos].trackName ?? "")
+        cell.song.text = Utils.formatSongListName(pos: songs[pos].trackNumber!, name: songs[pos].trackName!)
         return cell
     }
     

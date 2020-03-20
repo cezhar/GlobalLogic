@@ -94,13 +94,15 @@ class MainViewController: UIViewController{
                 let escapedString = searchField.text!.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
                 API.fetchSongs(with: escapedString, offset: with, completion: {result, error in
                     if result != nil{
-                        if result!.count < 0{
+                        if result!.count > 0{
                             self.songs = result!
+                            
                             DispatchQueue.main.async {
                                 self.formatNavigatorStuff()
                                 self.table.reloadData()
                             }
                         }else{
+                            
                             DispatchQueue.main.async {
                                 self.error.text = "Song not found..."
                                 self.table.isHidden = true
@@ -162,4 +164,3 @@ extension MainViewController: UITextFieldDelegate{
         return true
     }
 }
-
